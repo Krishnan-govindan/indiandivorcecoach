@@ -1,0 +1,91 @@
+# ─── Deploy to GitHub Pages ───────────────────────────────────────────────────
+#
+# Triggers:   push to `main` branch  OR  manual run from Actions tab
+# What it does:
+#   1. Installs dependencies
+#   2. Builds the Vite app (injects secrets as VITE_ env vars)
+#   3. Uploads the /dist folder as a Pages artifact
+#   4. Deploys that artifact to GitHub Pages
+#
+# Prerequisites (one-time setup in your repo):
+#   • Settings → Pages → Source: set to "GitHub Actions"
+#   • Settings → Secrets → Actions → add each secret below:
+#       VITE_CALENDLY_URL, VITE_WHATSAPP_NUMBER, VITE_EMAIL, VITE_GA_TRACKING_ID
+#
+# Custom domain:
+#   The public/CNAME file (indiandivorcecoach.com) is copied into /dist at
+#   build time.  GitHub Pages reads it and sets up the custom domain
+#   automatically on each deploy.
+# ─────────────────────────────────────────────────────────────────────────────
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:   # allow manual trigger from the Actions tab
+
+# Grant the GITHUB_TOKEN the permissions Pages deployment requires
+permissions:
+  contents: read
+  pages:    write
+  id-token: write
+
+# Only allow one concurrent deployment; cancel any in-progress run
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+
+  # ── Job 1: Build ─────────────────────────────────────────────────────────────
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build production bundle
+        run: npm run build
+        env:
+          # Secrets are injected here so Vite can embed them at build time.
+          # Add / remove variables to match your .env.example.
+          VITE_CALENDLY_URL:    ${{ secrets.VITE_CALENDLY_URL }}
+          VITE_WHATSAPP_NUMBER: ${{ secrets.VITE_WHATSAPP_NUMBER }}
+          VITE_EMAIL:           ${{ secrets.VITE_EMAIL }}
+          VITE_GA_TRACKING_ID:  ${{ secrets.VITE_GA_TRACKING_ID }}
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload dist/ as Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./dist"
+
+  # ── Job 2: Deploy ─────────────────────────────────────────────────────────────
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url:  ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

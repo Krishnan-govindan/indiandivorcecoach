@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Block crawlers from accessing build artifacts or config files
+Disallow: /src/
+Disallow: /.env
+Disallow: /.env.*
+
+# Sitemap location
+Sitemap: https://www.indiandivorcecoach.com/sitemap.xml
+
+# Crawl delay (optional — asks polite crawlers to wait 1s between requests)
+Crawl-delay: 1
