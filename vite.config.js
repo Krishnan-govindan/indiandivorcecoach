@@ -9,7 +9,8 @@ import react from '@vitejs/plugin-react'
 //
 // The CNAME file in public/ targets indiandivorcecoach.com, so '/' is correct.
 // Change back to '/indiandivorcecoach/' only if the custom domain is removed.
-const base = '/'
+// Switch back to '/' once indiandivorcecoach.com custom domain is active in GitHub Pages settings
+const base = '/indiandivorcecoach/'
 
 export default defineConfig({
   plugins: [react()],
