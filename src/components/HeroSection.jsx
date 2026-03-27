@@ -1,4 +1,5 @@
 import { Fragment, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Play, Users, Globe2, Award, ChevronDown, X } from 'lucide-react'
 import { Link as ScrollLink } from 'react-scroll'
@@ -554,7 +555,7 @@ function CoachPhoto() {
 // VIDEO MODAL — YouTube embed in a centred overlay
 // ═══════════════════════════════════════════════════════════════════════════════
 function VideoModal({ isOpen, onClose }) {
-  return (
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <>
@@ -622,7 +623,8 @@ function VideoModal({ isOpen, onClose }) {
           </motion.div>
         </>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   )
 }
 
