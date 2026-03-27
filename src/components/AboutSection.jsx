@@ -312,29 +312,14 @@ function PhotoFrame() {
             aria-hidden="true"
           />
 
-          {/* Placeholder avatar + label */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-5">
-            {/* Avatar circle */}
-            <div
-              className="
-                w-[88px] h-[88px] rounded-full
-                bg-white/[0.07] border border-white/[0.12]
-                flex items-center justify-center
-              "
-            >
-              <User size={38} strokeWidth={1.25} className="text-white/30" aria-hidden="true" />
-            </div>
-
-            {/* Name + hint */}
-            <div className="text-center px-6">
-              <p className="font-display font-semibold text-white/55 text-[1.05rem] leading-tight">
-                Krishnan Govindan
-              </p>
-              <p className="font-body text-white/25 text-[0.65rem] tracking-[0.2em] uppercase mt-2">
-                Replace with coach photo
-              </p>
-            </div>
-          </div>
+          {/* Coach photo */}
+          <img
+            src="https://assets.cdn.filesafe.space/m9jCzEyKqM4xlMWTjcgS/media/685aa9b8f1a848bc1fe8873d.jpeg"
+            alt="Krishnan Govindan — India's First Divorce Coach"
+            className="absolute inset-0 w-full h-full object-cover object-top"
+            loading="eager"
+            decoding="async"
+          />
 
           {/* Bottom gradient */}
           <div
