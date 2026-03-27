@@ -70,10 +70,10 @@ const PAIN_POINTS = [
     title: 'No One Understands the Full Picture',
     body: "Therapists don't understand Indian cultural context. Lawyers only handle the legal angle. Your family is too emotionally involved. You need someone who sees — and can guide — the whole picture.",
     image:
-      'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=640&h=380&fit=crop&crop=faces,center&auto=format&q=82',
+      'https://assets.cdn.filesafe.space/m9jCzEyKqM4xlMWTjcgS/media/69c68ffdea96ae28e1ebccfd.png',
     imageAlt:
       'Person sitting across from multiple advisors looking frustrated and misunderstood — no one gets the full story',
-    imageFocus: 'object-center',
+    imageFocus: 'object-top',
   },
 ]
 
