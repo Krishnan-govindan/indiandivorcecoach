@@ -4,7 +4,7 @@ import { Lock, Globe2, Gift } from 'lucide-react'
 import { trackCTAClick } from '../utils/analytics'
 
 // ─── Replace these with real values before launch ─────────────────────────────
-const CALENDLY_URL    = 'https://calendly.com/YOUR-LINK-HERE/discovery-call'
+const CALENDLY_URL    = 'https://calendly.com/fulsuccess/ai'
 const CONTACT_EMAIL   = 'hello@indiandivorcecoach.com'
 const WHATSAPP_NUMBER = '919999999999' // digits only: country code + number
 // ─────────────────────────────────────────────────────────────────────────────
