@@ -24,7 +24,7 @@ const BookingSection      = lazy(() => import('./components/BookingSection'))
 const FooterSection       = lazy(() => import('./components/FooterSection'))
 
 // ─── Config ───────────────────────────────────────────────────────────────────
-const WHATSAPP    = import.meta.env.VITE_WHATSAPP_NUMBER || '919999999999'
+const WHATSAPP    = import.meta.env.VITE_WHATSAPP_NUMBER || '14254424167'
 const EASE        = [0.22, 1, 0.36, 1]
 
 // All section IDs observed for view-tracking (matches id props in JSX below)

@@ -4,8 +4,8 @@ import { Link as ScrollLink } from 'react-scroll'
 import { trackCTAClick } from '../utils/analytics'
 
 // ─── Replace with real values before launch ───────────────────────────────────
-const CONTACT_EMAIL   = 'hello@indiandivorcecoach.com'
-const WHATSAPP_NUMBER = '919999999999' // digits only: country code + number
+const CONTACT_EMAIL   = 'support@indianlifecoaches.com'
+const WHATSAPP_NUMBER = '14254424167' // +1 (425) 442-4167
 const SOCIAL_LINKS = {
   linkedin:  'https://linkedin.com/in/YOUR-PROFILE',
   instagram: 'https://instagram.com/YOUR-HANDLE',
@@ -260,7 +260,7 @@ export default function FooterSection() {
                     focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold/40
                   "
                 >
-                  +{WHATSAPP_NUMBER}
+                  +1 (425) 442-4167
                 </a>
               </div>
             </div>

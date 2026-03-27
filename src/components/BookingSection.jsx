@@ -5,8 +5,8 @@ import { trackCTAClick } from '../utils/analytics'
 
 // ─── Replace these with real values before launch ─────────────────────────────
 const CALENDLY_URL    = 'https://calendly.com/fulsuccess/ai'
-const CONTACT_EMAIL   = 'hello@indiandivorcecoach.com'
-const WHATSAPP_NUMBER = '919999999999' // digits only: country code + number
+const CONTACT_EMAIL   = 'support@indianlifecoaches.com'
+const WHATSAPP_NUMBER = '14254424167' // +1 (425) 442-4167
 // ─────────────────────────────────────────────────────────────────────────────
 
 const CALENDLY_SCRIPT = 'https://assets.calendly.com/assets/external/widget.js'
