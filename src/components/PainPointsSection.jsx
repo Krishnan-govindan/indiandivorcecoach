@@ -30,9 +30,9 @@ const PAIN_POINTS = [
     title: 'Family Pressure & Cultural Shame',
     body: 'Every call home brings more judgment than support. The weight of "what will people say" is making an already devastating situation feel suffocating — and deeply isolating.',
     image:
-      'https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=640&h=380&fit=crop&crop=faces,center&auto=format&q=82',
+      'https://assets.cdn.filesafe.space/m9jCzEyKqM4xlMWTjcgS/media/69c693e53204ccfd2130ee4f.png',
     imageAlt:
-      'Person sitting alone on a call, head bowed, visibly distressed by the conversation',
+      'Person looking down with visible emotional weight, representing family judgment and cultural shame',
     imageFocus: 'object-top',
   },
   {
