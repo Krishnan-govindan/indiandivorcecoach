@@ -1,8 +1,10 @@
-import { Fragment } from 'react'
-import { motion } from 'framer-motion'
-import { ArrowRight, Play, Users, Globe2, Award, ChevronDown } from 'lucide-react'
+import { Fragment, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ArrowRight, Play, Users, Globe2, Award, ChevronDown, X } from 'lucide-react'
 import { Link as ScrollLink } from 'react-scroll'
 import { trackCTAClick } from '../utils/analytics'
+
+const YOUTUBE_VIDEO_ID = 'f4KJi4NTTmA'
 
 // ─── Structured Data (JSON-LD) ────────────────────────────────────────────────
 const SCHEMA = {
@@ -96,6 +98,8 @@ const trustItemVariants = {
 // HERO SECTION
 // ═══════════════════════════════════════════════════════════════════════════════
 export default function HeroSection({ id }) {
+  const [videoOpen, setVideoOpen] = useState(false)
+
   return (
     <>
       {/* JSON-LD Structured Data */}
@@ -126,7 +130,7 @@ export default function HeroSection({ id }) {
           ">
             {/* Left — Text Content */}
             <div className="w-full lg:w-[57%] lg:py-28 flex flex-col">
-              <HeroText />
+              <HeroText onWatchStory={() => setVideoOpen(true)} />
             </div>
 
             {/* Right — Coach Photo */}
@@ -148,6 +152,9 @@ export default function HeroSection({ id }) {
         {/* ── Scroll Indicator ──────────────────────────────────────────── */}
         <ScrollIndicator />
       </section>
+
+      {/* ── YouTube Video Modal ───────────────────────────────────────── */}
+      <VideoModal isOpen={videoOpen} onClose={() => setVideoOpen(false)} />
     </>
   )
 }
@@ -219,7 +226,7 @@ function HeroBackground() {
 // ═══════════════════════════════════════════════════════════════════════════════
 // HERO TEXT BLOCK
 // ═══════════════════════════════════════════════════════════════════════════════
-function HeroText() {
+function HeroText({ onWatchStory }) {
   return (
     <div>
       {/* ── Eyebrow Badge ──────────────────────────────────────────────── */}
@@ -339,53 +346,36 @@ function HeroText() {
           </ScrollLink>
         </motion.div>
 
-        {/* Secondary — Watch My Story */}
-        {/*
-          TODO: Replace ScrollLink with a button that opens a video modal
-          once the video URL is available.
-        */}
-        <motion.div
+        {/* Secondary — Watch My Story → opens YouTube modal */}
+        <motion.button
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           transition={{ type: 'spring', stiffness: 380, damping: 20 }}
+          onClick={() => { trackCTAClick('watch_story'); onWatchStory(); }}
+          className="
+            inline-flex items-center justify-center gap-3
+            px-7 py-[14px]
+            bg-white/[0.06] hover:bg-white/[0.12]
+            border border-white/20 hover:border-white/40
+            text-white/80 hover:text-white
+            font-body font-medium
+            text-[0.95rem] sm:text-[1rem]
+            rounded-full cursor-pointer select-none
+            backdrop-blur-sm
+            transition-all duration-300
+            focus-visible:ring-4 focus-visible:ring-white/20 focus-visible:outline-none
+            w-full sm:w-auto whitespace-nowrap
+          "
+          aria-label="Watch Krishnan Govindan's story video"
         >
-          <ScrollLink
-            to="about"
-            smooth
-            duration={600}
-            offset={SCROLL_OFFSET}
-            onClick={() => trackCTAClick('watch_story')}
-            className="
-              inline-flex items-center justify-center gap-3
-              px-7 py-[14px]
-              bg-white/[0.06] hover:bg-white/[0.12]
-              border border-white/20 hover:border-white/40
-              text-white/80 hover:text-white
-              font-body font-medium
-              text-[0.95rem] sm:text-[1rem]
-              rounded-full cursor-pointer select-none
-              backdrop-blur-sm
-              transition-all duration-300
-              focus-visible:ring-4 focus-visible:ring-white/20 focus-visible:outline-none
-              w-full sm:w-auto whitespace-nowrap
-            "
-            aria-label="Watch Krishnan's story — scroll to About section"
+          <span
+            className="flex items-center justify-center w-7 h-7 rounded-full bg-white/20 flex-shrink-0"
+            aria-hidden="true"
           >
-            {/* Play icon in a small circle */}
-            <span
-              className="
-                flex items-center justify-center
-                w-7 h-7 rounded-full
-                bg-white/20
-                flex-shrink-0
-              "
-              aria-hidden="true"
-            >
-              <Play size={11} fill="currentColor" strokeWidth={0} />
-            </span>
-            Watch My Story
-          </ScrollLink>
-        </motion.div>
+            <Play size={11} fill="currentColor" strokeWidth={0} />
+          </span>
+          Watch My Story
+        </motion.button>
       </motion.div>
 
       {/* ── Trust Indicators ────────────────────────────────────────────── */}
@@ -560,6 +550,82 @@ function CoachPhoto() {
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // SCROLL INDICATOR
+// ═══════════════════════════════════════════════════════════════════════════════
+// VIDEO MODAL — YouTube embed in a centred overlay
+// ═══════════════════════════════════════════════════════════════════════════════
+function VideoModal({ isOpen, onClose }) {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            key="backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[200] bg-black/80 backdrop-blur-sm"
+            onClick={onClose}
+            aria-hidden="true"
+          />
+
+          {/* Modal */}
+          <motion.div
+            key="modal"
+            initial={{ opacity: 0, scale: 0.92, y: 24 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.92, y: 24 }}
+            transition={{ duration: 0.32, ease: EASE }}
+            className="
+              fixed inset-0 z-[201]
+              flex items-center justify-center
+              px-4 sm:px-6
+            "
+            role="dialog"
+            aria-modal="true"
+            aria-label="Watch Krishnan Govindan's story"
+          >
+            <div className="relative w-full max-w-3xl">
+              {/* Close button */}
+              <button
+                onClick={onClose}
+                className="
+                  absolute -top-11 right-0
+                  flex items-center gap-2
+                  text-white/70 hover:text-white
+                  font-body text-sm
+                  transition-colors duration-200
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40
+                "
+                aria-label="Close video"
+              >
+                <X size={18} strokeWidth={2} />
+                Close
+              </button>
+
+              {/* 16:9 video wrapper */}
+              <div
+                className="relative w-full overflow-hidden rounded-2xl shadow-[0_32px_80px_rgba(0,0,0,0.7)]"
+                style={{ paddingBottom: '56.25%' }}
+              >
+                <iframe
+                  src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0&modestbranding=1`}
+                  title="Krishnan Govindan — India's First Divorce Coach Story"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                  style={{ border: 'none' }}
+                />
+              </div>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  )
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 function ScrollIndicator() {
   return (
