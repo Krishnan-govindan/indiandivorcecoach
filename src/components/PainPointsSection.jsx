@@ -50,7 +50,7 @@ const PAIN_POINTS = [
     title: 'Fear of Losing Everything',
     body: "Custody of your children, your shared home, your savings, your visa status — everything feels up in the air. The cross-border financial and legal uncertainty is completely overwhelming.",
     image:
-      'https://images.unsplash.com/photo-1491013516836-7db643ee125a?w=640&h=380&fit=crop&crop=faces,top&auto=format&q=82',
+      'https://assets.cdn.filesafe.space/m9jCzEyKqM4xlMWTjcgS/media/69c694293197de710ba75582.png',
     imageAlt:
       'A worried parent holding a child close, expression showing fear of separation and loss',
     imageFocus: 'object-top',
