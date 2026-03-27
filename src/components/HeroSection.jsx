@@ -129,7 +129,7 @@ export default function HeroSection({ id }) {
               <HeroText />
             </div>
 
-            {/* Right — Decorative Mandala */}
+            {/* Right — Coach Photo */}
             <div className="
               w-full
               max-w-[300px] sm:max-w-[380px] lg:max-w-none
@@ -139,7 +139,7 @@ export default function HeroSection({ id }) {
               lg:py-28
             ">
               <div className="w-full lg:max-w-[480px] xl:max-w-[520px]">
-                <GeometricMandala />
+                <CoachPhoto />
               </div>
             </div>
           </div>
@@ -429,171 +429,132 @@ function HeroText() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// GEOMETRIC MANDALA — Pure CSS / SVG decorative element
-//
-// Three animation layers:
-//   1. Outer ring of dots  → slow clockwise rotation (80s)
-//   2. Dashed middle ring  → slow counter-clockwise (55s)
-//   3. Static core rings, spokes, dot accents, cardinal diamonds
-//   4. Inner glow         → gentle pulse (opacity + scale, 5s loop)
+// COACH PHOTO — Right-side hero image with decorative frame
 // ═══════════════════════════════════════════════════════════════════════════════
-function GeometricMandala() {
-  const CX = 200
-  const CY = 200
+const COACH_IMAGE_URL =
+  'https://assets.cdn.filesafe.space/m9jCzEyKqM4xlMWTjcgS/media/685aa9b8f1a848bc1fe8873d.jpeg'
 
-  /**
-   * Returns {x, y} coords for `count` evenly spaced points on a circle
-   * of the given `radius`, starting from the top (−90°).
-   */
-  const ring = (count, radius) =>
-    Array.from({ length: count }, (_, i) => {
-      const a = ((-90 + (i * 360) / count) * Math.PI) / 180
-      return { x: CX + radius * Math.cos(a), y: CY + radius * Math.sin(a) }
-    })
-
-  const outerDots  = ring(12, 172)  // 12 dots on the rotating outer ring
-  const middleDots = ring(8,  110)  // 8 dots on the static inner band
-  const innerDots  = ring(6,  70)   // 6 smaller dots, innermost band
-
-  // 8 spoke lines from center to outer radius
-  const spokes = Array.from({ length: 8 }, (_, i) => {
-    const a = ((-90 + i * 45) * Math.PI) / 180
-    return { x2: CX + 185 * Math.cos(a), y2: CY + 185 * Math.sin(a) }
-  })
-
-  // 4 cardinal diamond positions (top, right, bottom, left) at r=90
-  const diamonds = [0, 90, 180, 270].map(deg => {
-    const a = ((deg - 90) * Math.PI) / 180
-    return { x: CX + 90 * Math.cos(a), y: CY + 90 * Math.sin(a), rot: deg }
-  })
-
+function CoachPhoto() {
   return (
-    <div
-      className="relative w-full aspect-square select-none"
+    <motion.div
+      initial={{ opacity: 0, x: 40, scale: 0.96 }}
+      animate={{ opacity: 1, x: 0, scale: 1 }}
+      transition={{ duration: 0.85, delay: 0.45, ease: EASE }}
+      className="relative w-full select-none"
       aria-hidden="true"
-      role="presentation"
     >
-      {/* Soft diffuse glow — rendered below the SVG layers */}
+      {/* Outer gold accent ring */}
       <div
-        className="absolute inset-[12%] rounded-full pointer-events-none"
+        className="absolute -inset-[6px] rounded-3xl pointer-events-none z-0"
         style={{
           background:
-            'radial-gradient(circle, rgba(212,168,83,0.13) 0%, rgba(212,168,83,0.04) 45%, transparent 72%)',
-          filter: 'blur(28px)',
-        }}
-      />
-      <div
-        className="absolute inset-[32%] rounded-full pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(circle, rgba(232,115,74,0.09) 0%, transparent 68%)',
-          filter: 'blur(18px)',
+            'linear-gradient(135deg, rgba(212,168,83,0.55) 0%, rgba(212,168,83,0.08) 50%, rgba(232,115,74,0.35) 100%)',
+          borderRadius: '1.6rem',
         }}
       />
 
-      {/* ── Layer 1: Outer ring of dots, slow CW rotation ─────────────── */}
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 80, repeat: Infinity, ease: 'linear' }}
-        className="absolute inset-0"
-        style={{ willChange: 'transform' }}
+      {/* Diffuse glow behind photo */}
+      <div
+        className="absolute -inset-10 pointer-events-none z-[-1]"
+        style={{
+          background:
+            'radial-gradient(ellipse 70% 80% at 55% 50%, rgba(212,168,83,0.18) 0%, transparent 68%)',
+          filter: 'blur(24px)',
+        }}
+      />
+
+      {/* Photo frame */}
+      <div
+        className="relative z-10 overflow-hidden w-full"
+        style={{
+          borderRadius: '1.4rem',
+          border: '1.5px solid rgba(212,168,83,0.30)',
+          boxShadow:
+            '0 32px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,168,83,0.12) inset',
+        }}
       >
-        <svg viewBox="0 0 400 400" className="w-full h-full" fill="none">
-          <circle cx={CX} cy={CY} r="188" stroke="#D4A853" strokeWidth="0.7" strokeOpacity="0.18" />
-          {outerDots.map((p, i) => (
-            <circle
-              key={i}
-              cx={p.x} cy={p.y}
-              r={i % 3 === 0 ? 3.5 : 2}
-              fill="#D4A853"
-              fillOpacity={i % 3 === 0 ? 0.65 : 0.32}
-            />
-          ))}
-        </svg>
+        <img
+          src={COACH_IMAGE_URL}
+          alt="Krishnan Govindan — India's First Divorce Coach"
+          className="w-full h-auto block object-cover object-top"
+          loading="eager"
+          decoding="async"
+          style={{ display: 'block' }}
+        />
+
+        {/* Bottom name badge overlay */}
+        <div
+          className="absolute bottom-0 left-0 right-0 px-5 py-4"
+          style={{
+            background:
+              'linear-gradient(to top, rgba(6,13,24,0.92) 0%, rgba(6,13,24,0.60) 60%, transparent 100%)',
+          }}
+        >
+          <p className="text-white font-display font-bold text-[1.05rem] leading-tight">
+            Krishnan Govindan
+          </p>
+          <p className="text-gold text-[0.72rem] font-body font-semibold tracking-[0.14em] uppercase mt-0.5">
+            India's First Divorce Coach
+          </p>
+        </div>
+      </div>
+
+      {/* Floating trust badge — top-left corner */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.7 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1.1, duration: 0.5, ease: EASE }}
+        className="
+          absolute -top-4 -left-4 z-20
+          flex items-center gap-2
+          px-3 py-2 rounded-xl
+          backdrop-blur-sm
+        "
+        style={{
+          background: 'rgba(6,13,24,0.88)',
+          border: '1px solid rgba(212,168,83,0.35)',
+          boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+        }}
+      >
+        <span className="text-[1.1rem]">🏆</span>
+        <div>
+          <p className="text-white text-[0.65rem] font-body font-bold leading-tight">
+            500+ Lives
+          </p>
+          <p className="text-gold text-[0.58rem] font-body tracking-wide uppercase">
+            Transformed
+          </p>
+        </div>
       </motion.div>
 
-      {/* ── Layer 2: Dashed ring, slow CCW rotation ───────────────────── */}
+      {/* Floating country badge — bottom-right */}
       <motion.div
-        animate={{ rotate: -360 }}
-        transition={{ duration: 55, repeat: Infinity, ease: 'linear' }}
-        className="absolute inset-0"
-        style={{ willChange: 'transform' }}
-      >
-        <svg viewBox="0 0 400 400" className="w-full h-full" fill="none">
-          <circle
-            cx={CX} cy={CY} r="148"
-            stroke="#D4A853"
-            strokeWidth="1"
-            strokeDasharray="7 5"
-            strokeOpacity="0.25"
-          />
-        </svg>
-      </motion.div>
-
-      {/* ── Layer 3: Static geometric core ───────────────────────────── */}
-      <svg
-        viewBox="0 0 400 400"
-        className="absolute inset-0 w-full h-full"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        {/* Concentric rings */}
-        <circle cx={CX} cy={CY} r="170" stroke="#D4A853" strokeWidth="0.4" strokeOpacity="0.12" />
-        <circle cx={CX} cy={CY} r="128" stroke="#D4A853" strokeWidth="1.1" strokeOpacity="0.28" />
-        <circle cx={CX} cy={CY} r="90"  stroke="#D4A853" strokeWidth="0.8" strokeOpacity="0.20" />
-        <circle cx={CX} cy={CY} r="54"  stroke="#D4A853" strokeWidth="1.4" strokeOpacity="0.42" />
-        <circle cx={CX} cy={CY} r="25"  stroke="#D4A853" strokeWidth="1.8" strokeOpacity="0.58" />
-
-        {/* 8 spokes */}
-        {spokes.map((s, i) => (
-          <line
-            key={i}
-            x1={CX} y1={CY}
-            x2={s.x2} y2={s.y2}
-            stroke="#D4A853"
-            strokeWidth="0.5"
-            strokeOpacity="0.12"
-          />
-        ))}
-
-        {/* Middle ring — 8 dots */}
-        {middleDots.map((p, i) => (
-          <circle key={i} cx={p.x} cy={p.y} r="4"   fill="#D4A853" fillOpacity="0.52" />
-        ))}
-
-        {/* Inner ring — 6 smaller dots */}
-        {innerDots.map((p, i) => (
-          <circle key={i} cx={p.x} cy={p.y} r="2.8" fill="#D4A853" fillOpacity="0.38" />
-        ))}
-
-        {/* 4 cardinal diamond accents (at r=90, rotated to point outward) */}
-        {diamonds.map((d, i) => (
-          <g key={i} transform={`translate(${d.x},${d.y}) rotate(${d.rot})`}>
-            <path d="M0,-7.5 L5.5,0 L0,7.5 L-5.5,0 Z" fill="#D4A853" fillOpacity="0.52" />
-          </g>
-        ))}
-
-        {/* Center glyph — outer halo, middle circle, bright core */}
-        <circle cx={CX} cy={CY} r="22" fill="#D4A853" fillOpacity="0.06" />
-        <circle cx={CX} cy={CY} r="7"  fill="#D4A853" fillOpacity="0.82" />
-        <circle cx={CX} cy={CY} r="3"  fill="#FFFFFF"  fillOpacity="0.90" />
-      </svg>
-
-      {/* ── Layer 4: Inner pulsing glow ───────────────────────────────── */}
-      <motion.div
-        animate={{
-          opacity: [0.35, 0.85, 0.35],
-          scale:   [0.90, 1.06, 0.90],
-        }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute inset-[37%] rounded-full pointer-events-none"
+        initial={{ opacity: 0, scale: 0.7 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1.3, duration: 0.5, ease: EASE }}
+        className="
+          absolute -bottom-4 -right-4 z-20
+          flex items-center gap-2
+          px-3 py-2 rounded-xl
+          backdrop-blur-sm
+        "
         style={{
-          background:
-            'radial-gradient(circle, rgba(212,168,83,0.28) 0%, transparent 68%)',
-          willChange: 'transform, opacity',
+          background: 'rgba(6,13,24,0.88)',
+          border: '1px solid rgba(212,168,83,0.35)',
+          boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
         }}
-      />
-    </div>
+      >
+        <span className="text-[1.1rem]">🌏</span>
+        <div>
+          <p className="text-white text-[0.65rem] font-body font-bold leading-tight">
+            12+ Countries
+          </p>
+          <p className="text-gold text-[0.58rem] font-body tracking-wide uppercase">
+            Worldwide
+          </p>
+        </div>
+      </motion.div>
+    </motion.div>
   )
 }
 
