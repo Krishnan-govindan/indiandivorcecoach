@@ -12,36 +12,68 @@ import { Link as ScrollLink } from 'react-scroll'
 import { trackCTAClick } from '../utils/analytics'
 
 // ─── Pain Points Data ─────────────────────────────────────────────────────────
+// Each entry has a curated Unsplash image that visually tells the story
+// before the reader even processes the text.
 const PAIN_POINTS = [
   {
     Icon: Globe,
     title: 'Stuck Between Two Legal Systems',
     body: "You're trying to understand divorce laws in India and your country of residence — and they contradict each other. No one is explaining how the two interact, and one wrong move could cost you everything.",
+    image:
+      'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=640&h=380&fit=crop&crop=center&auto=format&q=82',
+    imageAlt:
+      'Person overwhelmed by stacks of conflicting legal documents from two different countries',
+    imageFocus: 'object-center',
   },
   {
     Icon: Users,
     title: 'Family Pressure & Cultural Shame',
     body: 'Every call home brings more judgment than support. The weight of "what will people say" is making an already devastating situation feel suffocating — and deeply isolating.',
+    image:
+      'https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=640&h=380&fit=crop&crop=faces,center&auto=format&q=82',
+    imageAlt:
+      'Person sitting alone on a call, head bowed, visibly distressed by the conversation',
+    imageFocus: 'object-top',
   },
   {
     Icon: Heart,
     title: 'Alone in a Foreign Country',
     body: 'Your closest people — parents, siblings, lifelong friends — are thousands of miles away. You are facing the hardest chapter of your life without your support system anywhere near you.',
+    image:
+      'https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=640&h=380&fit=crop&crop=center&auto=format&q=82',
+    imageAlt:
+      'Person sitting alone in a large empty urban space, looking small and isolated in a foreign city',
+    imageFocus: 'object-center',
   },
   {
     Icon: Shield,
     title: 'Fear of Losing Everything',
     body: "Custody of your children, your shared home, your savings, your visa status — everything feels up in the air. The cross-border financial and legal uncertainty is completely overwhelming.",
+    image:
+      'https://images.unsplash.com/photo-1491013516836-7db643ee125a?w=640&h=380&fit=crop&crop=faces,top&auto=format&q=82',
+    imageAlt:
+      'A worried parent holding a child close, expression showing fear of separation and loss',
+    imageFocus: 'object-top',
   },
   {
     Icon: Briefcase,
     title: 'Your Career Is Taking the Hit',
     body: "You can't concentrate at work. Deadlines are slipping and performance is dropping. You're holding it together on the outside while quietly unraveling on the inside.",
+    image:
+      'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=640&h=380&fit=crop&crop=center&auto=format&q=82',
+    imageAlt:
+      'Person sitting at a laptop at work, staring blankly into space instead of working, clearly distracted',
+    imageFocus: 'object-top',
   },
   {
     Icon: HelpCircle,
     title: 'No One Understands the Full Picture',
     body: "Therapists don't understand Indian cultural context. Lawyers only handle the legal angle. Your family is too emotionally involved. You need someone who sees — and can guide — the whole picture.",
+    image:
+      'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=640&h=380&fit=crop&crop=faces,center&auto=format&q=82',
+    imageAlt:
+      'Person sitting across from multiple advisors looking frustrated and misunderstood — no one gets the full story',
+    imageFocus: 'object-center',
   },
 ]
 
@@ -49,28 +81,21 @@ const PAIN_POINTS = [
 const EASE = [0.22, 1, 0.36, 1]
 
 // ─── Motion Variants ──────────────────────────────────────────────────────────
-
-// Section headline — slides in from left
 const headerVariants = {
   hidden:  { opacity: 0, x: -44 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.65, ease: EASE } },
 }
 
-// Empathy sub-text — fades up
 const subtextVariants = {
   hidden:  { opacity: 0, y: 16 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.18, ease: EASE } },
 }
 
-// Card grid wrapper — drives stagger timing
 const gridVariants = {
   hidden:  {},
-  visible: {
-    transition: { staggerChildren: 0.12, delayChildren: 0.05 },
-  },
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
 }
 
-// Individual card — fade up + slight scale
 const cardVariants = {
   hidden:  { opacity: 0, y: 36, scale: 0.97 },
   visible: {
@@ -81,7 +106,6 @@ const cardVariants = {
   },
 }
 
-// Bottom CTA block
 const ctaVariants = {
   hidden:  { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
@@ -117,7 +141,6 @@ export default function PainPointsSection({ id }) {
               Are You Going Through This Right Now?
             </h2>
 
-            {/* Gold divider */}
             <div className="gold-divider mx-auto" />
           </motion.div>
 
@@ -136,11 +159,6 @@ export default function PainPointsSection({ id }) {
         </div>
 
         {/* ── Pain Point Cards Grid ──────────────────────────────────────── */}
-        {/*
-          Desktop  (lg+):  3 columns × 2 rows
-          Tablet   (sm–lg): 2 columns × 3 rows
-          Mobile   (<sm):   1 column  × 6 rows
-        */}
         <motion.div
           variants={gridVariants}
           initial="hidden"
@@ -203,14 +221,19 @@ export default function PainPointsSection({ id }) {
 // ═══════════════════════════════════════════════════════════════════════════════
 // PAIN CARD
 //
-// Hover behaviour (all via CSS/Tailwind, coexists with Framer Motion lift):
-//   — card:      border-left transitions transparent → gold
-//   — icon bg:   soft gold tint deepens
-//   — icon:      navy/50 → solid gold
-//   — shadow:    soft → card-level depth
+// Layout (top → bottom):
+//   1. Full-width photo  — visually communicates the pain point instantly
+//   2. Icon pill         — reinforces category at a glance
+//   3. Title             — names the specific struggle
+//   4. Body              — empathetic description
+//
+// Hover effects:
+//   — card:  lifts (y -6) + gold left border
+//   — image: subtle scale-up (1.04×) over 700ms for depth
+//   — icon:  navy/45 → solid gold
 // ═══════════════════════════════════════════════════════════════════════════════
 function PainCard({ point }) {
-  const { Icon, title, body } = point
+  const { Icon, title, body, image, imageAlt, imageFocus } = point
 
   return (
     <motion.div
@@ -220,59 +243,81 @@ function PainCard({ point }) {
         transition: { type: 'spring', stiffness: 340, damping: 22 },
       }}
       className="
-        group relative
+        group relative flex flex-col
         bg-white rounded-2xl
-        p-6 sm:p-7
         border-l-4 border-l-transparent hover:border-l-gold
         shadow-soft hover:shadow-card
         transition-[border-color,box-shadow] duration-300
-        cursor-default
-        overflow-hidden
+        cursor-default overflow-hidden
       "
     >
-      {/* Decorative top-right corner dot — adds subtle polish */}
-      <div
-        className="
-          absolute top-4 right-4 w-2 h-2 rounded-full
-          bg-gold/20 group-hover:bg-gold/50
-          transition-colors duration-300
-        "
-        aria-hidden="true"
-      />
-
-      {/* Icon container */}
-      <div
-        className="
-          w-12 h-12 rounded-full
-          bg-[#D4A853]/[0.12] group-hover:bg-[#D4A853]/[0.22]
-          flex items-center justify-center
-          mb-5
-          transition-colors duration-300
-        "
-      >
-        <Icon
-          size={21}
-          strokeWidth={1.75}
-          className="text-navy/45 group-hover:text-gold transition-colors duration-300"
-          aria-hidden="true"
+      {/* ── Image ──────────────────────────────────────────────────────── */}
+      <div className="relative h-48 overflow-hidden flex-shrink-0">
+        <img
+          src={image}
+          alt={imageAlt}
+          className={`
+            w-full h-full object-cover ${imageFocus}
+            transition-transform duration-700 ease-out
+            group-hover:scale-[1.05]
+          `}
+          loading="lazy"
+          decoding="async"
+        />
+        {/* Bottom fade — blends image into white card body */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-14 pointer-events-none"
+          style={{
+            background: 'linear-gradient(to top, rgba(255,255,255,0.55) 0%, transparent 100%)',
+          }}
         />
       </div>
 
-      {/* Title */}
-      <h3 className="
-        font-display font-bold text-navy leading-snug
-        text-[1.02rem] lg:text-[1.06rem]
-        mb-3
-      ">
-        {title}
-      </h3>
+      {/* ── Content ────────────────────────────────────────────────────── */}
+      <div className="flex flex-col flex-1 p-6 sm:p-7 relative">
 
-      {/* Body */}
-      <p className="
-        font-body text-[0.875rem] text-gray-500 leading-relaxed
-      ">
-        {body}
-      </p>
+        {/* Decorative corner dot */}
+        <div
+          className="
+            absolute top-4 right-4 w-2 h-2 rounded-full
+            bg-gold/20 group-hover:bg-gold/50
+            transition-colors duration-300
+          "
+          aria-hidden="true"
+        />
+
+        {/* Icon pill */}
+        <div
+          className="
+            w-10 h-10 rounded-full
+            bg-[#D4A853]/[0.12] group-hover:bg-[#D4A853]/[0.22]
+            flex items-center justify-center
+            mb-4 flex-shrink-0
+            transition-colors duration-300
+          "
+        >
+          <Icon
+            size={18}
+            strokeWidth={1.75}
+            className="text-navy/45 group-hover:text-gold transition-colors duration-300"
+            aria-hidden="true"
+          />
+        </div>
+
+        {/* Title */}
+        <h3 className="
+          font-display font-bold text-navy leading-snug
+          text-[1.02rem] lg:text-[1.06rem]
+          mb-3
+        ">
+          {title}
+        </h3>
+
+        {/* Body */}
+        <p className="font-body text-[0.875rem] text-gray-500 leading-relaxed">
+          {body}
+        </p>
+      </div>
     </motion.div>
   )
 }
