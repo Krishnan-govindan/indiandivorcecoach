@@ -181,40 +181,40 @@ function HeroBackground() {
         className="absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 80% 70% at 68% 35%, rgba(42,72,130,0.55) 0%, transparent 65%)',
+            'radial-gradient(ellipse 80% 70% at 68% 35%, rgba(42,72,130,0.30) 0%, transparent 65%)',
         }}
       />
 
-      {/* 3 — Strong coral glow — bottom-left, warm & visible */}
+      {/* 3 — Subtle coral glow — bottom-left */}
       <div
         className="absolute -left-32 bottom-[5%] w-[750px] h-[750px] rounded-full pointer-events-none"
         style={{
           background:
-            'radial-gradient(circle, rgba(232,115,74,0.22) 0%, rgba(232,115,74,0.08) 40%, transparent 68%)',
+            'radial-gradient(circle, rgba(232,115,74,0.10) 0%, rgba(232,115,74,0.04) 40%, transparent 68%)',
         }}
       />
 
-      {/* 4 — Strong gold glow — top-right where coach photo is */}
+      {/* 4 — Subtle gold glow — top-right */}
       <div
         className="absolute right-[-8%] top-[5%] w-[800px] h-[800px] rounded-full pointer-events-none"
         style={{
           background:
-            'radial-gradient(circle, rgba(212,168,83,0.18) 0%, rgba(212,168,83,0.06) 45%, transparent 65%)',
+            'radial-gradient(circle, rgba(212,168,83,0.09) 0%, rgba(212,168,83,0.03) 45%, transparent 65%)',
         }}
       />
 
-      {/* 5 — Purple/violet accent top-left — adds depth & visual interest */}
+      {/* 5 — Very soft purple accent top-left */}
       <div
         className="absolute -top-24 -left-24 w-[500px] h-[500px] rounded-full pointer-events-none"
         style={{
           background:
-            'radial-gradient(circle, rgba(120,80,200,0.14) 0%, transparent 60%)',
+            'radial-gradient(circle, rgba(120,80,200,0.07) 0%, transparent 60%)',
         }}
       />
 
       {/* 6 — Dot grid (gold tint) */}
       <div
-        className="absolute inset-0 opacity-[0.18]"
+        className="absolute inset-0 opacity-[0.10]"
         style={{
           backgroundImage: 'radial-gradient(circle, #D4A853 1px, transparent 1px)',
           backgroundSize: '42px 42px',
@@ -236,7 +236,7 @@ function HeroBackground() {
         className="absolute left-[35%] top-[40%] w-[600px] h-[400px] pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse, rgba(0,160,170,0.07) 0%, transparent 65%)',
+            'radial-gradient(ellipse, rgba(0,160,170,0.04) 0%, transparent 65%)',
           transform: 'rotate(-15deg)',
         }}
       />
