@@ -112,7 +112,7 @@ export default function HeroSection({ id }) {
       <section
         id={id}
         className="relative min-h-screen overflow-hidden"
-        style={{ backgroundColor: '#07111f' }}
+        style={{ backgroundColor: '#0E1E38' }}
         aria-labelledby="hero-heading"
       >
         {/* ── Background Layers (bottom → top) ──────────────────────────── */}
@@ -167,25 +167,61 @@ function HeroBackground() {
   return (
     <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
 
-      {/* 1 — Base radial gradient */}
+      {/* 1 — Rich multi-tone base gradient (deep indigo → slate blue → dark teal) */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 130% 90% at 65% 25%, #0e2040 0%, #07111f 50%, #040c18 100%)',
+            'linear-gradient(135deg, #1a1035 0%, #0E1E38 30%, #0d2244 55%, #102238 80%, #0a1a2e 100%)',
         }}
       />
 
-      {/* 2 — Dot grid (gold tint, very subtle) */}
+      {/* 2 — Radial spotlight: warm indigo-blue bloom at center-right */}
       <div
-        className="absolute inset-0 opacity-[0.14]"
+        className="absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse 80% 70% at 68% 35%, rgba(42,72,130,0.55) 0%, transparent 65%)',
+        }}
+      />
+
+      {/* 3 — Strong coral glow — bottom-left, warm & visible */}
+      <div
+        className="absolute -left-32 bottom-[5%] w-[750px] h-[750px] rounded-full pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(circle, rgba(232,115,74,0.22) 0%, rgba(232,115,74,0.08) 40%, transparent 68%)',
+        }}
+      />
+
+      {/* 4 — Strong gold glow — top-right where coach photo is */}
+      <div
+        className="absolute right-[-8%] top-[5%] w-[800px] h-[800px] rounded-full pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(circle, rgba(212,168,83,0.18) 0%, rgba(212,168,83,0.06) 45%, transparent 65%)',
+        }}
+      />
+
+      {/* 5 — Purple/violet accent top-left — adds depth & visual interest */}
+      <div
+        className="absolute -top-24 -left-24 w-[500px] h-[500px] rounded-full pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(circle, rgba(120,80,200,0.14) 0%, transparent 60%)',
+        }}
+      />
+
+      {/* 6 — Dot grid (gold tint) */}
+      <div
+        className="absolute inset-0 opacity-[0.18]"
         style={{
           backgroundImage: 'radial-gradient(circle, #D4A853 1px, transparent 1px)',
           backgroundSize: '42px 42px',
         }}
       />
 
-      {/* 3 — Grain / noise texture via inline SVG data-URI */}
+      {/* 7 — Grain / noise texture */}
       <div
         className="absolute inset-0 opacity-[0.04] pointer-events-none"
         style={{
@@ -195,29 +231,21 @@ function HeroBackground() {
         }}
       />
 
-      {/* 4 — Ambient coral glow (left) */}
+      {/* 8 — Soft teal shimmer mid-section */}
       <div
-        className="absolute -left-48 top-[20%] w-[640px] h-[640px] rounded-full"
+        className="absolute left-[35%] top-[40%] w-[600px] h-[400px] pointer-events-none"
         style={{
           background:
-            'radial-gradient(circle, rgba(232,115,74,0.07) 0%, transparent 62%)',
+            'radial-gradient(ellipse, rgba(0,160,170,0.07) 0%, transparent 65%)',
+          transform: 'rotate(-15deg)',
         }}
       />
 
-      {/* 5 — Ambient gold glow (right, where mandala sits) */}
-      <div
-        className="absolute right-[-5%] top-[15%] w-[700px] h-[700px] rounded-full"
-        style={{
-          background:
-            'radial-gradient(circle, rgba(212,168,83,0.09) 0%, transparent 60%)',
-        }}
-      />
-
-      {/* 6 — Bottom fade → blends into next section */}
+      {/* 9 — Bottom fade → blends into next section */}
       <div
         className="absolute bottom-0 left-0 right-0 h-36 pointer-events-none"
         style={{
-          background: 'linear-gradient(to bottom, transparent 0%, #07111f 100%)',
+          background: 'linear-gradient(to bottom, transparent 0%, #0a1a2e 100%)',
         }}
       />
     </div>
@@ -510,7 +538,7 @@ function CoachPhoto() {
         <span className="text-[1.1rem]">🏆</span>
         <div>
           <p className="text-white text-[0.65rem] font-body font-bold leading-tight">
-            500+ Lives
+            100+ Lives
           </p>
           <p className="text-gold text-[0.58rem] font-body tracking-wide uppercase">
             Transformed
