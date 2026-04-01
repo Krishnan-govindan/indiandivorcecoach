@@ -22,8 +22,9 @@
   --color-coral-dark: #D95A2E;
 
   /* Typography Scale */
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body:    'DM Sans', Inter, system-ui, sans-serif;
+  --font-display:   'Montserrat', system-ui, sans-serif;
+  --font-body:      'Poppins', system-ui, sans-serif;
+  --font-editorial: Georgia, 'Times New Roman', serif;
 
   /* Spacing */
   --section-padding-y:  clamp(4rem, 8vw, 7rem);
@@ -262,8 +263,9 @@
    UTILITIES LAYER — Additional one-off helpers
    ═══════════════════════════════════════════════════════════════════════════ */
 @layer utilities {
-  .font-display { font-family: var(--font-display); }
-  .font-body    { font-family: var(--font-body); }
+  .font-display  { font-family: var(--font-display); }
+  .font-body     { font-family: var(--font-body); }
+  .font-editorial{ font-family: var(--font-editorial); }
 
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

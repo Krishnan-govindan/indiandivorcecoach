@@ -58,9 +58,10 @@ export default {
 
       // ─── Typography ─────────────────────────────────────────────────────────
       fontFamily: {
-        display: ['"Playfair Display"', 'Georgia', 'serif'],
-        body:    ['"DM Sans"', 'Inter', 'system-ui', 'sans-serif'],
-        sans:    ['"DM Sans"', 'Inter', 'system-ui', 'sans-serif'],
+        display:   ['"Montserrat"', 'system-ui', 'sans-serif'],   // headlines, section titles, nav, CTAs
+        body:      ['"Poppins"', 'system-ui', 'sans-serif'],       // body copy, descriptions, card text
+        sans:      ['"Poppins"', 'system-ui', 'sans-serif'],
+        editorial: ['Georgia', '"Times New Roman"', 'serif'],      // quotes, blockquotes, editorial accents
       },
       fontSize: {
         'hero-xl': ['clamp(2.5rem, 6vw, 5rem)',   { lineHeight: '1.1', letterSpacing: '-0.02em' }],

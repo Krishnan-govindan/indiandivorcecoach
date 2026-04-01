@@ -448,7 +448,7 @@ function TestimonialCard({ testimonial }) {
         {/* Quote body */}
         <p
           className="
-            font-body text-[0.975rem] sm:text-[1.04rem]
+            font-editorial italic text-[0.975rem] sm:text-[1.04rem]
             text-gray-700 leading-[1.88]
             mb-8 relative z-10
           "

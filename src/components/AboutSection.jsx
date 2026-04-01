@@ -153,7 +153,7 @@ export default function AboutSection({ id }) {
               >
                 "
               </span>
-              <p className="font-display italic text-navy text-[1.05rem] sm:text-[1.12rem] leading-relaxed">
+              <p className="font-editorial italic text-navy text-[1.05rem] sm:text-[1.12rem] leading-relaxed">
                 I've faced countless rejections, setbacks, and failures — my
                 marriage being the biggest one. But did it stop me? No. It made
                 me who I am today.
