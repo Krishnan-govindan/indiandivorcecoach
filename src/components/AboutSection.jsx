@@ -356,20 +356,29 @@ function CredentialItem({ cred }) {
       variants={credItemVariants}
       className="flex flex-col items-center text-center gap-2 px-2"
     >
-      {/* Icon */}
-      <div
-        className="w-9 h-9 rounded-full bg-gold/[0.12] flex items-center justify-center mb-1"
+      {/* Icon — 3D flip-in + glow pulse */}
+      <motion.div
+        initial={{ rotateY: -180, scale: 0.6 }}
+        whileInView={{ rotateY: 0, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, type: 'spring', stiffness: 80, damping: 14 }}
+        whileHover={{ scale: 1.18, boxShadow: '0 0 22px rgba(212,168,83,0.50)' }}
+        style={{ transformStyle: 'preserve-3d' }}
+        className="w-9 h-9 rounded-full bg-gold/[0.12] flex items-center justify-center mb-1 cursor-default"
       >
         <Icon size={17} strokeWidth={1.75} className="text-gold" aria-hidden="true" />
-      </div>
+      </motion.div>
 
-      {/* Number / value */}
-      <span className="font-display font-bold text-navy text-[1.6rem] leading-none tracking-tight">
-        {countTo !== null
-          ? <>{count}{suffix}</>
-          : display
-        }
-      </span>
+      {/* Number / value — scale pop when count finishes */}
+      <motion.span
+        key={count}
+        initial={{ scale: 1 }}
+        animate={{ scale: [1, 1.15, 1] }}
+        transition={{ duration: 0.35, ease: 'easeOut' }}
+        className="font-display font-bold text-navy text-[1.6rem] leading-none tracking-tight"
+      >
+        {countTo !== null ? <>{count}{suffix}</> : display}
+      </motion.span>
 
       {/* Label */}
       <span className="font-body text-[0.72rem] text-gray-400 font-medium leading-snug">

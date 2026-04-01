@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import {
   Globe,
   Users,
@@ -236,13 +236,33 @@ export default function PainPointsSection({ id }) {
 function PainCard({ point }) {
   const { Icon, title, body, image, imageAlt, imageFocus } = point
 
+  // ── 3D tilt spring values ──────────────────────────────────────────────────
+  const rawX = useMotionValue(0)
+  const rawY = useMotionValue(0)
+  const springX = useSpring(rawX, { stiffness: 220, damping: 26 })
+  const springY = useSpring(rawY, { stiffness: 220, damping: 26 })
+  const rotateX = useTransform(springY, [-0.5, 0.5], [12, -12])
+  const rotateY = useTransform(springX, [-0.5, 0.5], [-12, 12])
+  const specular = useTransform(
+    [springX, springY],
+    ([xv, yv]) =>
+      `radial-gradient(circle at ${Math.round((xv + 0.5) * 100)}% ${Math.round((yv + 0.5) * 100)}%, rgba(212,168,83,0.22) 0%, transparent 58%)`
+  )
+
+  const handleMouseMove = (e) => {
+    const r = e.currentTarget.getBoundingClientRect()
+    rawX.set((e.clientX - r.left) / r.width - 0.5)
+    rawY.set((e.clientY - r.top) / r.height - 0.5)
+  }
+  const handleMouseLeave = () => { rawX.set(0); rawY.set(0) }
+
   return (
+    <motion.div variants={cardVariants} style={{ perspective: 900 }}>
     <motion.div
-      variants={cardVariants}
-      whileHover={{
-        y: -6,
-        transition: { type: 'spring', stiffness: 340, damping: 22 },
-      }}
+      style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+      whileHover={{ y: -6, transition: { type: 'spring', stiffness: 340, damping: 22 } }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       className="
         group relative flex flex-col
         bg-white rounded-2xl
@@ -252,6 +272,12 @@ function PainCard({ point }) {
         cursor-default overflow-hidden
       "
     >
+      {/* Specular light glare that follows cursor */}
+      <motion.div
+        className="absolute inset-0 rounded-2xl pointer-events-none z-10"
+        style={{ background: specular }}
+        aria-hidden="true"
+      />
       {/* ── Image ──────────────────────────────────────────────────────── */}
       <div className="relative h-48 overflow-hidden flex-shrink-0">
         <img
@@ -319,6 +345,7 @@ function PainCard({ point }) {
           {body}
         </p>
       </div>
+    </motion.div>
     </motion.div>
   )
 }

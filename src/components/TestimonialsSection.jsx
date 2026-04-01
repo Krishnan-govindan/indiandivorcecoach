@@ -90,11 +90,12 @@ const starGroupVariants = {
   visible: { transition: { staggerChildren: 0.07, delayChildren: 0.12 } },
 }
 const starItemVariants = {
-  hidden:  { opacity: 0, scale: 0.2, rotate: -20 },
+  hidden:  { opacity: 0, scale: 0.2, rotate: -20, rotateY: -90 },
   visible: {
     opacity: 1,
     scale:   1,
     rotate:  0,
+    rotateY: 0,
     transition: { type: 'spring', stiffness: 520, damping: 14 },
   },
 }

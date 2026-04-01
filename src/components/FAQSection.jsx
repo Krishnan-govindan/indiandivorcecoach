@@ -76,10 +76,10 @@ const listVariants = {
   visible: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
 }
 
-// Individual FAQ row — fades up
+// Individual FAQ row — 3D perspective reveal
 const rowVariants = {
-  hidden:  { opacity: 0, y: 22 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+  hidden:  { opacity: 0, y: 22, rotateX: 18 },
+  visible: { opacity: 1, y: 0, rotateX: 0, transition: { duration: 0.55, ease: EASE } },
 }
 
 const ctaVariants = {
@@ -138,6 +138,7 @@ export default function FAQSection({ id }) {
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
           className="max-w-[800px] mx-auto"
+          style={{ perspective: '700px' }}
         >
           {FAQS.map((faq, i) => (
             <FAQItem

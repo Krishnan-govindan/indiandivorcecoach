@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import {
   UserCheck,
   HeartHandshake,
@@ -217,16 +217,34 @@ function ServiceCard({ service }) {
   const { Icon, name, badge, description, points, idealFor } = service
   const [isHovered, setIsHovered] = useState(false)
 
+  // ── 3D tilt spring values ──────────────────────────────────────────────────
+  const rawX = useMotionValue(0)
+  const rawY = useMotionValue(0)
+  const springX = useSpring(rawX, { stiffness: 200, damping: 24 })
+  const springY = useSpring(rawY, { stiffness: 200, damping: 24 })
+  const rotateX = useTransform(springY, [-0.5, 0.5], [10, -10])
+  const rotateY = useTransform(springX, [-0.5, 0.5], [-10, 10])
+  const specular = useTransform(
+    [springX, springY],
+    ([xv, yv]) =>
+      `radial-gradient(circle at ${Math.round((xv + 0.5) * 100)}% ${Math.round((yv + 0.5) * 100)}%, rgba(212,168,83,0.18) 0%, transparent 55%)`
+  )
+
+  const handleMouseMove = (e) => {
+    const r = e.currentTarget.getBoundingClientRect()
+    rawX.set((e.clientX - r.left) / r.width - 0.5)
+    rawY.set((e.clientY - r.top) / r.height - 0.5)
+  }
+  const handleMouseLeave = () => { rawX.set(0); rawY.set(0); setIsHovered(false) }
+
   return (
+    <motion.div variants={cardScrollVariants} style={{ perspective: 900 }}>
     <motion.div
-      variants={cardScrollVariants}
-      whileHover={{
-        scale: 1.02,
-        y: -6,
-        transition: { type: 'spring', stiffness: 340, damping: 22 },
-      }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
+      style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+      whileHover={{ scale: 1.02, y: -6, transition: { type: 'spring', stiffness: 340, damping: 22 } }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={handleMouseLeave}
       className="
         group relative flex flex-col
         rounded-2xl overflow-hidden
@@ -236,6 +254,12 @@ function ServiceCard({ service }) {
         bg-white
       "
     >
+      {/* Specular glare */}
+      <motion.div
+        className="absolute inset-0 rounded-2xl pointer-events-none z-10"
+        style={{ background: specular }}
+        aria-hidden="true"
+      />
       {/* Gold top border — fades in on hover */}
       <div
         className="
@@ -371,6 +395,7 @@ function ServiceCard({ service }) {
         </ScrollLink>
 
       </div>
+    </motion.div>
     </motion.div>
   )
 }

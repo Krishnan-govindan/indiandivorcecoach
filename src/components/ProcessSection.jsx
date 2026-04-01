@@ -320,18 +320,30 @@ function StepNode({ step }) {
         {/* Large background step number — count-up on scroll */}
         <StepNumber n={n} />
 
-        {/* Icon circle — z-10 to sit above the translucent number */}
-        <div
+        {/* Icon circle — 3D Y-axis flip on scroll-in */}
+        <motion.div
+          initial={{ rotateY: -180, opacity: 0, scale: 0.7 }}
+          whileInView={{ rotateY: 0, opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.75, delay: n * 0.15, type: 'spring', stiffness: 70, damping: 14 }}
+          whileHover={{
+            rotateY: 20,
+            scale: 1.12,
+            boxShadow: '0 0 28px rgba(212,168,83,0.55)',
+            transition: { type: 'spring', stiffness: 300, damping: 18 },
+          }}
+          style={{ transformStyle: 'preserve-3d' }}
           className="
             relative z-10
             w-16 h-16 rounded-full
             bg-navy border-2 border-gold/50
             flex items-center justify-center
             shadow-[0_4px_20px_rgba(10,22,40,0.22)]
+            cursor-default
           "
         >
           <Icon size={22} strokeWidth={1.75} className="text-gold" aria-hidden="true" />
-        </div>
+        </motion.div>
       </div>
 
       {/* Title */}
