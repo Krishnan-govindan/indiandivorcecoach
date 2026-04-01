@@ -138,7 +138,8 @@ export default function BookingSection({ id }) {
               mt-2 mb-5
             "
           >
-            Your New Chapter Starts Here
+            <span className="text-white">Your New Chapter </span>
+            <span className="text-gold">Starts Here</span>
           </motion.h2>
 
           <motion.p

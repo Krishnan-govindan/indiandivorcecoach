@@ -101,7 +101,8 @@ export default function ServicesSection({ id }) {
   return (
     <section
       id={id}
-      className="section-padding bg-navy overflow-hidden"
+      className="section-padding overflow-hidden"
+      style={{ backgroundColor: '#F5F7FA' }}
       aria-labelledby="services-heading"
     >
       <div className="container-custom">
@@ -119,15 +120,16 @@ export default function ServicesSection({ id }) {
           <h2
             id="services-heading"
             className="
-              font-display font-bold text-white leading-tight tracking-tight
+              font-display font-bold leading-tight tracking-tight
               text-[1.8rem] sm:text-[2.2rem] lg:text-[2.75rem]
               mt-1 mb-4
             "
           >
-            How I Can Help You
+            <span className="text-navy">How I Can </span>
+            <span className="text-gold">Help You</span>
           </h2>
 
-          <p className="font-body text-white/50 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+          <p className="font-body text-navy/50 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
             Three focused coaching programs designed for Indians and NRIs
             worldwide — wherever you are in the process.
           </p>
@@ -158,7 +160,7 @@ export default function ServicesSection({ id }) {
           variants={ctaVariants}
           className="text-center"
         >
-          <p className="font-body text-white/45 text-[0.95rem] mb-6">
+          <p className="font-body text-navy/45 text-[0.95rem] mb-6">
             Not sure which is right for you?
           </p>
 
@@ -228,11 +230,11 @@ function ServiceCard({ service }) {
       className="
         group relative flex flex-col
         rounded-2xl overflow-hidden
-        border border-white/[0.07]
+        border border-navy/[0.10]
         transition-shadow duration-300
-        hover:shadow-[0_24px_64px_rgba(0,0,0,0.5)]
+        hover:shadow-[0_24px_64px_rgba(10,22,40,0.14)]
+        bg-white
       "
-      style={{ backgroundColor: '#0d1c34' }}
     >
       {/* Gold top border — fades in on hover */}
       <div
@@ -289,7 +291,7 @@ function ServiceCard({ service }) {
 
         {/* Service name */}
         <h3 className="
-          font-display font-bold text-white
+          font-display font-bold text-navy
           text-[1.12rem] leading-snug
           mb-3
         ">
@@ -297,7 +299,7 @@ function ServiceCard({ service }) {
         </h3>
 
         {/* Description */}
-        <p className="font-body text-[0.875rem] text-white/50 leading-relaxed mb-5">
+        <p className="font-body text-[0.875rem] text-navy/55 leading-relaxed mb-5">
           {description}
         </p>
 
@@ -318,7 +320,7 @@ function ServiceCard({ service }) {
               >
                 <Check size={10} strokeWidth={3} className="text-gold" />
               </span>
-              <span className="font-body text-[0.845rem] text-white/65 leading-snug">
+              <span className="font-body text-[0.845rem] text-navy/65 leading-snug">
                 {point}
               </span>
             </li>
@@ -326,7 +328,7 @@ function ServiceCard({ service }) {
         </ul>
 
         {/* "Ideal for" */}
-        <p className="font-body text-[0.795rem] leading-relaxed mb-7 text-white/35">
+        <p className="font-body text-[0.795rem] leading-relaxed mb-7 text-navy/40">
           <span className="not-italic font-semibold text-gold/65 tracking-wide">
             Ideal for:
           </span>{' '}
@@ -337,7 +339,7 @@ function ServiceCard({ service }) {
         <div className="flex-1" />
 
         {/* Divider */}
-        <div className="h-px bg-white/[0.06] mb-5" />
+        <div className="h-px bg-navy/[0.08] mb-5" />
 
         {/* Learn More link */}
         <ScrollLink

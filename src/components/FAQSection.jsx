@@ -123,10 +123,11 @@ export default function FAQSection({ id }) {
             id="faq-heading"
             className="section-title text-navy mt-1 mb-4"
           >
-            Questions? I've Got Answers.
+            <span className="text-navy">Questions? </span>
+            <span className="text-gold">I've Got Answers.</span>
           </h2>
           <p className="section-subtitle mx-auto text-center">
-            Everything you need to know before taking the first step
+            Everything you need to know before taking the <span className="text-gold font-semibold">first step</span>
           </p>
         </motion.div>
 

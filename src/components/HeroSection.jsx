@@ -63,7 +63,7 @@ const HEADLINE_WORDS = [
 
 // ─── Trust Statistics ──────────────────────────────────────────────────────────
 const TRUST_STATS = [
-  { Icon: Users,  label: '500+ Lives Transformed'     },
+  { Icon: Users,  label: '100+ Lives Transformed'     },
   { Icon: Globe2, label: 'Clients in 12+ Countries'   },
   { Icon: Award,  label: "India's First Divorce Coach" },
 ]
@@ -297,7 +297,7 @@ function HeroText({ onWatchStory }) {
       >
         India's first and most trusted online divorce coach — helping NRIs and
         Indians worldwide navigate divorce with{' '}
-        <span className="text-white/90 font-medium">
+        <span className="text-gold font-semibold">
           clarity, confidence, and a concrete plan
         </span>{' '}
         — not just sympathy.

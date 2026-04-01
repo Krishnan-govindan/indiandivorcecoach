@@ -172,10 +172,11 @@ export default function TestimonialsSection({ id }) {
             id="testimonials-heading"
             className="section-title text-navy mt-1 mb-4"
           >
-            Real Stories. Real Transformations.
+            <span className="text-navy">Real Stories. </span>
+            <span className="text-gold">Real Transformations.</span>
           </h2>
           <p className="section-subtitle mx-auto text-center">
-            Hear from Indians and NRIs worldwide who took the first step
+            Hear from Indians and NRIs worldwide who <span className="text-gold font-semibold">took the first step</span>
           </p>
         </motion.div>
 

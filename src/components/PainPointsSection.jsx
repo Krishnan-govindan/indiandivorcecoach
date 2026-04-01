@@ -138,7 +138,8 @@ export default function PainPointsSection({ id }) {
               id="pain-points-heading"
               className="section-title text-navy mt-1 text-balance"
             >
-              Are You Going Through This Right Now?
+              <span className="text-navy">Are You Going Through </span>
+              <span className="text-gold">This Right Now?</span>
             </h2>
 
             <div className="gold-divider mx-auto" />
@@ -152,7 +153,7 @@ export default function PainPointsSection({ id }) {
             className="section-subtitle mx-auto text-center"
           >
             If any of this feels familiar, you're not alone —{' '}
-            <span className="text-navy font-medium">
+            <span className="text-gold font-semibold">
               and you don't have to figure this out by yourself.
             </span>
           </motion.p>

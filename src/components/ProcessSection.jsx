@@ -95,10 +95,11 @@ export default function ProcessSection({ id }) {
             id="process-heading"
             className="section-title text-navy mt-1 mb-4"
           >
-            How It Works
+            <span className="text-navy">How </span>
+            <span className="text-gold">It Works</span>
           </h2>
           <p className="section-subtitle mx-auto text-center">
-            From confusion to clarity in 4 simple steps
+            From confusion to <span className="text-gold font-semibold">clarity</span> in 4 simple steps
           </p>
         </motion.div>
 

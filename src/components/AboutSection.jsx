@@ -12,13 +12,13 @@ const SCROLL_OFFSET = -80
 const STORY = [
   "I know what this feels like — because I've lived it. I went through a divorce myself, as an Indian navigating life abroad. I know the loneliness, the cultural weight, and the disorienting confusion of not knowing which rules even apply to you. I know what it means to have your entire world collapse while you're thousands of miles from everyone who knows you.",
   "For years, I built a career in corporate India — eventually leading customer service operations at ICICI Bank. I believed I had the life I was supposed to have. Then my marriage broke down. I faced rejection, failure, and a kind of pain I had absolutely no framework for. And I realised something that changed my life: there was no one who truly understood what an Indian going through divorce abroad actually faces — not just the legal tangle, but the cultural shame, the isolation, the identity crisis.",
-  "That gap became my purpose. I retrained, built India's first dedicated divorce coaching practice, and have since helped 500+ Indians and NRIs across 12+ countries navigate divorce — not just survive it, but come out with a plan, their dignity intact, and a life they're rebuilding on their own terms.",
+  "That gap became my purpose. I retrained, built India's first dedicated divorce coaching practice, and have since helped 100+ Indians and NRIs across 12+ countries navigate divorce — not just survive it, but come out with a plan, their dignity intact, and a life they're rebuilding on their own terms.",
 ]
 
 // ─── Credentials Data ─────────────────────────────────────────────────────────
 // countTo: number for count-up animation; null renders `display` statically
 const CREDENTIALS = [
-  { Icon: Users,  countTo: 500,  suffix: '+', label: 'Clients Coached'      },
+  { Icon: Users,  countTo: 100,  suffix: '+', label: 'Clients Coached'      },
   { Icon: Globe2, countTo: 12,   suffix: '+', label: 'Countries Served'     },
   { Icon: Award,  countTo: null, display: '#1',  label: 'Divorce Coach in India' },
   { Icon: Clock,  countTo: null, display: '24/7', label: 'Available Online'  },
