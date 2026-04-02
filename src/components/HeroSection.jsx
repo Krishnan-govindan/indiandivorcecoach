@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, Play, Users, Globe2, Award, ChevronDown, X } from 'lucide-react'
+import { ArrowRight, Play, Users, Globe2, Award, ChevronDown, X, CalendarCheck, MessageCircle, Instagram, Facebook, Youtube, Linkedin } from 'lucide-react'
 import { Link as ScrollLink } from 'react-scroll'
 import { trackCTAClick } from '../utils/analytics'
 
@@ -48,25 +48,15 @@ const SCHEMA = {
   },
 }
 
-// ─── Headline Words ────────────────────────────────────────────────────────────
-// Each word is animated individually; gold:true words render in brand gold.
-const HEADLINE_WORDS = [
-  { text: 'You',         gold: false },
-  { text: "Don't",       gold: false },
-  { text: 'Need',        gold: false },
-  { text: 'Permission',  gold: false },
-  { text: 'to',          gold: false },
-  { text: 'Rebuild',     gold: true  },
-  { text: 'Your',        gold: false },
-  { text: 'Life',        gold: false },
+// ─── Social Links ──────────────────────────────────────────────────────────────
+const SOCIAL_LINKS = [
+  { Icon: Instagram, href: 'https://instagram.com/YOUR-HANDLE',     label: 'Instagram' },
+  { Icon: Facebook,  href: 'https://facebook.com/YOUR-PAGE',        label: 'Facebook'  },
+  { Icon: Youtube,   href: 'https://youtube.com/@YOUR-CHANNEL',     label: 'YouTube'   },
+  { Icon: Linkedin,  href: 'https://linkedin.com/in/YOUR-PROFILE',  label: 'LinkedIn'  },
 ]
 
-// ─── Trust Statistics ──────────────────────────────────────────────────────────
-const TRUST_STATS = [
-  { Icon: Users,  label: '100+ Lives Transformed'     },
-  { Icon: Globe2, label: 'Clients in 12+ Countries'   },
-  { Icon: Award,  label: "India's First Divorce Coach" },
-]
+const WHATSAPP_NUMBER = '14254424167'
 
 // ─── Shared Easing ────────────────────────────────────────────────────────────
 const EASE = [0.22, 1, 0.36, 1]
@@ -258,87 +248,96 @@ function HeroBackground() {
 function HeroText({ onWatchStory }) {
   return (
     <div>
-      {/* ── Eyebrow Badge ──────────────────────────────────────────────── */}
+
+      {/* ── Eyebrow pill ─────────────────────────────────────────────────── */}
       <motion.div
-        initial={{ opacity: 0, x: -36 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.65, delay: 0.2, ease: EASE }}
-        className="inline-flex items-center gap-3 mb-7"
+        initial={{ opacity: 0, y: -16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
+        className="inline-flex mb-6"
       >
-        <span className="block w-8 h-px bg-gold" />
-        <span
-          className="
-            text-[0.62rem] font-body font-semibold
-            tracking-[0.22em] uppercase text-gold
-          "
-        >
-          India's #1 Divorce Coach for NRIs
+        <span className="
+          inline-block
+          px-4 py-2
+          rounded-full
+          bg-white/[0.08] border border-white/[0.15]
+          font-body text-[0.72rem] font-medium text-white/70
+          tracking-wide backdrop-blur-sm
+        ">
+          India's 1st Divorce Coach · CEO India Therapist · Founder Indian Life Coaches
         </span>
-        <span className="block w-8 h-px bg-gold" />
       </motion.div>
 
-      {/* ── H1 — Word-by-word animation ────────────────────────────────── */}
-      {/*
-        The sr-only suffix appends SEO keywords to the heading without
-        cluttering the visual layout.
-      */}
+      {/* ── H1 line 1 — white bold title ─────────────────────────────────── */}
       <motion.h1
         id="hero-heading"
-        variants={wordContainerVariants}
-        initial="hidden"
-        animate="visible"
+        initial={{ opacity: 0, y: 32 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.65, delay: 0.3, ease: EASE }}
         className="
-          font-display font-bold leading-[1.08] tracking-[-0.02em]
-          text-[2rem] sm:text-[2.6rem] md:text-[3.1rem]
-          lg:text-[3.4rem] xl:text-[3.9rem]
-          flex flex-wrap gap-x-[0.22em] gap-y-[0.05em]
+          font-display font-black text-white leading-[1.05] tracking-[-0.02em]
+          text-[2.2rem] sm:text-[2.8rem] md:text-[3.2rem] lg:text-[3.6rem]
+          mb-3
+        "
+      >
+        #1 Breakup &amp; Divorce<br />Recovery Coach
+        <span className="sr-only"> — India's first online divorce coach for Indians and NRIs in USA, UK, Canada, Australia, and worldwide.</span>
+      </motion.h1>
+
+      {/* ── H2 line — gold large subhead ─────────────────────────────────── */}
+      <motion.p
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.65, delay: 0.45, ease: EASE }}
+        className="
+          font-display font-bold text-gold leading-[1.1] tracking-[-0.01em]
+          text-[1.9rem] sm:text-[2.3rem] md:text-[2.7rem] lg:text-[3rem]
+          mb-3
+        "
+      >
+        Heal, Rebuild &amp; Thrive Again
+      </motion.p>
+
+      {/* ── Tagline ──────────────────────────────────────────────────────── */}
+      <motion.p
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.55, ease: EASE }}
+        className="
+          font-display font-semibold text-gold/75
+          text-[1rem] sm:text-[1.15rem] lg:text-[1.25rem]
           mb-7
         "
       >
-        {HEADLINE_WORDS.map((word, i) => (
-          <motion.span
-            key={i}
-            variants={wordVariants}
-            className={word.gold ? 'text-gold' : 'text-white'}
-            style={{ display: 'inline-block' }}
-          >
-            {word.text}
-          </motion.span>
-        ))}
-        {/* Hidden keyword suffix for SEO — read by screen readers naturally */}
-        <span className="sr-only">
-          {' '}— India's first online divorce coach for Indians and NRIs
-          in USA, UK, Canada, Australia, and worldwide.
-        </span>
-      </motion.h1>
+        Life will never be the same again
+      </motion.p>
 
-      {/* ── Sub-headline ────────────────────────────────────────────────── */}
+      {/* ── Description ──────────────────────────────────────────────────── */}
       <motion.p
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.76, ease: EASE }}
+        transition={{ duration: 0.65, delay: 0.65, ease: EASE }}
         className="
-          font-body text-[1rem] sm:text-[1.05rem] lg:text-[1.1rem]
-          text-white/60 leading-[1.75]
-          max-w-[560px] mb-10
+          font-body text-[0.95rem] sm:text-[1rem] lg:text-[1.05rem]
+          text-white/55 leading-[1.75]
+          max-w-[520px] mb-9
         "
       >
-        India's first and most trusted online divorce coach — helping NRIs and
-        Indians worldwide navigate divorce with{' '}
-        <span className="text-gold font-semibold">
-          clarity, confidence, and a concrete plan
-        </span>{' '}
-        — not just sympathy.
+        India's 1st Divorce Coach &amp; Life Strategist. Specialized in breakup
+        recovery, digital nomad lifestyle, and relationship transitions.{' '}
+        <span className="text-white/80 font-medium">
+          CEO at India Therapist, founder of Indian Life Coaches.
+        </span>
       </motion.p>
 
       {/* ── CTA Buttons ─────────────────────────────────────────────────── */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.65, delay: 0.9, ease: EASE }}
-        className="flex flex-col sm:flex-row gap-4 mb-12"
+        transition={{ duration: 0.65, delay: 0.78, ease: EASE }}
+        className="flex flex-col sm:flex-row gap-4 mb-10"
       >
-        {/* Primary — Book Free Call */}
+        {/* Primary — Schedule a Session */}
         <motion.div
           whileHover={{ scale: 1.04, y: -2 }}
           whileTap={{ scale: 0.97 }}
@@ -353,96 +352,89 @@ function HeroText({ onWatchStory }) {
             className="
               inline-flex items-center justify-center gap-2.5
               px-7 py-[14px]
-              bg-coral hover:bg-coral-dark
-              text-white font-body font-bold
+              bg-gold hover:bg-[#c49840]
+              text-navy font-body font-bold
               text-[0.95rem] sm:text-[1rem]
-              rounded-full cursor-pointer select-none
-              shadow-[0_8px_32px_rgba(232,115,74,0.38)]
-              hover:shadow-[0_12px_44px_rgba(232,115,74,0.55)]
+              rounded-xl cursor-pointer select-none
+              shadow-[0_8px_32px_rgba(212,168,83,0.40)]
+              hover:shadow-[0_12px_44px_rgba(212,168,83,0.58)]
               transition-[background-color,box-shadow] duration-300
-              focus-visible:ring-4 focus-visible:ring-coral/40 focus-visible:outline-none
+              focus-visible:ring-4 focus-visible:ring-gold/40 focus-visible:outline-none
               w-full sm:w-auto whitespace-nowrap
             "
-            aria-label="Book your free 30-minute discovery call with Krishnan Govindan"
+            aria-label="Schedule a session with Krishnan Govindan"
           >
-            Book Your Free Discovery Call
-            <ArrowRight
-              size={17}
-              strokeWidth={2.5}
-              className="flex-shrink-0"
-              aria-hidden="true"
-            />
+            <CalendarCheck size={17} strokeWidth={2.2} className="flex-shrink-0" aria-hidden="true" />
+            Schedule a Session
           </ScrollLink>
         </motion.div>
 
-        {/* Secondary — Watch My Story → opens YouTube modal */}
-        <motion.button
+        {/* Secondary — WhatsApp */}
+        <motion.div
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           transition={{ type: 'spring', stiffness: 380, damping: 20 }}
-          onClick={() => { trackCTAClick('watch_story'); onWatchStory(); }}
-          className="
-            inline-flex items-center justify-center gap-3
-            px-7 py-[14px]
-            bg-white/[0.06] hover:bg-white/[0.12]
-            border border-white/20 hover:border-white/40
-            text-white/80 hover:text-white
-            font-body font-medium
-            text-[0.95rem] sm:text-[1rem]
-            rounded-full cursor-pointer select-none
-            backdrop-blur-sm
-            transition-all duration-300
-            focus-visible:ring-4 focus-visible:ring-white/20 focus-visible:outline-none
-            w-full sm:w-auto whitespace-nowrap
-          "
-          aria-label="Watch Krishnan Govindan's story video"
         >
-          <span
-            className="flex items-center justify-center w-7 h-7 rounded-full bg-white/20 flex-shrink-0"
-            aria-hidden="true"
+          <a
+            href={`https://wa.me/${WHATSAPP_NUMBER}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackCTAClick('whatsapp_hero')}
+            className="
+              inline-flex items-center justify-center gap-3
+              px-6 py-[14px]
+              bg-white/[0.07] hover:bg-white/[0.14]
+              border border-white/20 hover:border-white/40
+              text-white/85 hover:text-white
+              font-body font-semibold
+              text-[0.95rem] sm:text-[1rem]
+              rounded-xl cursor-pointer select-none
+              backdrop-blur-sm
+              transition-all duration-300
+              focus-visible:ring-4 focus-visible:ring-white/20 focus-visible:outline-none
+              w-full sm:w-auto whitespace-nowrap
+            "
+            aria-label="Chat on WhatsApp"
           >
-            <Play size={11} fill="currentColor" strokeWidth={0} />
-          </span>
-          Watch My Story
-        </motion.button>
+            <MessageCircle size={17} strokeWidth={2} className="flex-shrink-0 text-[#25D366]" aria-hidden="true" />
+            WhatsApp: +1 (425) 442-4167
+          </a>
+        </motion.div>
       </motion.div>
 
-      {/* ── Trust Indicators ────────────────────────────────────────────── */}
+      {/* ── Social Icons ─────────────────────────────────────────────────── */}
       <motion.div
         variants={trustContainerVariants}
         initial="hidden"
         animate="visible"
-        className="flex flex-wrap items-center gap-x-0 gap-y-2"
-        aria-label="Trust indicators"
+        className="flex items-center gap-4"
+        aria-label="Social media links"
       >
-        {TRUST_STATS.map(({ Icon, label }, i) => (
-          <Fragment key={label}>
-            <motion.div
-              variants={trustItemVariants}
-              className="flex items-center gap-1.5"
-            >
-              <Icon
-                size={13}
-                strokeWidth={2}
-                className="text-gold flex-shrink-0"
-                aria-hidden="true"
-              />
-              <span className="text-[0.75rem] font-body font-medium text-white/50 tracking-wide">
-                {label}
-              </span>
-            </motion.div>
-            {i < TRUST_STATS.length - 1 && (
-              <motion.span
-                variants={trustItemVariants}
-                className="mx-4 text-white/20 text-base leading-none select-none"
-                aria-hidden="true"
-              >
-                ·
-              </motion.span>
-            )}
-          </Fragment>
+        {SOCIAL_LINKS.map(({ Icon, href, label }) => (
+          <motion.a
+            key={label}
+            variants={trustItemVariants}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={label}
+            whileHover={{ y: -3, scale: 1.15 }}
+            whileTap={{ scale: 0.92 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+            className="
+              w-9 h-9 rounded-full
+              bg-white/[0.08] hover:bg-white/[0.18]
+              border border-white/[0.12] hover:border-gold/40
+              flex items-center justify-center
+              text-white/50 hover:text-gold
+              transition-colors duration-200
+            "
+          >
+            <Icon size={16} strokeWidth={1.75} aria-hidden="true" />
+          </motion.a>
         ))}
       </motion.div>
+
     </div>
   )
 }
